@@ -30,7 +30,7 @@ footer a{margin:0 8px}
   h1{font-size:1.9rem}
   .hero{padding:28px 0}
   .demo-card{padding:14px;border-radius:12px}
-  .demo-text{padding:12px;font-size:1.1rem;min-height:0}
+  .demo-text{padding:12px;min-height:0}
 }
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .chip{border:1px solid var(--border);border-radius:10px;padding:2px 10px;font-size:.95rem;color:var(--text-muted)}
