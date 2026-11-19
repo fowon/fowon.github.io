@@ -1,0 +1,42 @@
+---
+layout: default
+title: "Армянские буквы — научитесь читать по-армянски без зубрежки"
+description: "Приложение с постепенной заменой русских букв на армянские в текстах."
+---
+<main class="container">
+<section class="hero">
+<span class="badge">Приложение для Android</span>
+<h1>Научитесь читать по-армянски без зубрежки</h1>
+<p class="subtitle">«Армянские буквы» — приложение с постепенной заменой русских букв на армянские в текстах. Мозг запоминает буквы естественным образом во время чтения. Сначала одна буква, две, три — и вот Вы уже понимаете армянские буквы.</p>
+<div class="demo-card">
+<div class="demo-header"><strong>Пример:</strong></div>
+<div class="demo-text" id="demoText"></div>
+<input type="range" id="stepRange" min="0" max="25" value="2">
+<div class="chips" id="chips"></div>
+</div>
+</section>
+</main>
+<script>
+const text="Утреннее солнце осветило вершины гор. Каждый новый шаг открывает одну букву, и чтение будет интересной игрой. Знакомые слова приобретут новый облик, и скоро Вы прочтете этот текст без подсказок.";
+// порядок появления армянских букв (только те, что есть в тексте)
+const order=['ա','ն','ր','ե','ի','ու','մ','ո','կ','տ','յ','ս','վ','լ','ց','դ','գ','ը','պ','բ','շ','է','զ','չ','ժ'];
+const R={а:'ա',б:'բ',в:'վ',г:'գ',д:'դ',е:'ե',ж:'ժ',з:'զ',и:'ի',й:'յ',к:'կ',л:'լ',м:'մ',н:'ն',о:'ո',п:'պ',р:'ր',с:'ս',т:'տ',у:'ու',х:'խ',ф:'ֆ',ц:'ց',ч:'չ',ш:'շ',ы:'ը',э:'է'};
+const cap=a=>a.charAt(0).toUpperCase()+a.slice(1);
+const rank={},ru={};
+for(const k in R){rank[k]=order.indexOf(R[k]);ru[R[k]]=k;}
+const range=document.getElementById("stepRange"),out=document.getElementById("demoText"),chips=document.getElementById("chips");
+range.max=order.length;
+function render(){
+  const n=+range.value;
+  let html="";
+  for(const ch of text){
+    const low=ch.toLowerCase(),a=R[low];
+    if(a&&rank[low]<n)html+='<span class="arm-char">'+(ch===low?a:cap(a))+'</span>';
+    else html+=ch;
+  }
+  out.innerHTML=html;
+  chips.innerHTML=order.map((t,i)=>'<span class="chip'+(i<n?' on':'')+'">'+ru[t]+' → '+t+'</span>').join("");
+}
+range.addEventListener("input",render);
+render();
+</script>
